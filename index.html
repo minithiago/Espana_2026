@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La Roja 2026 — Equipación Oficial de Campeones del Mundo</title>
+<meta name="description" content="Presentación oficial de las nuevas camisetas de la Selección Española tras la conquista del Mundial 2026. Primera y segunda equipación.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TOKENS
+   ============================================================ */
+:root{
+  /* Neutrals — deep studio */
+  --ink:#0B0A0C;
+  --ink-2:#141114;
+  --ink-3:#1E1A1D;
+
+  /* Kit: HOME (primera equipación) */
+  --h-crimson:#8E1620;
+  --h-crimson-deep:#5C0D14;
+  --h-crimson-lit:#C0202C;
+  --h-navy:#1E2140;
+  --h-gold:#D6A93C;
+  --h-gold-lit:#F0D28A;
+
+  /* Kit: AWAY (segunda equipación) */
+  --a-cream:#F3EFE4;
+  --a-cream-2:#E4DDCB;
+  --a-burgundy:#7C2233;
+  --a-burgundy-deep:#54121F;
+  --a-gold:#E0B558;
+
+  /* Active theme (swapped by JS) */
+  --brand:#8E1620;
+  --brand-lit:#C0202C;
+  --brand-deep:#5C0D14;
+  --accent:#D6A93C;
+  --accent-lit:#F0D28A;
+
+  /* Surfaces & text */
+  --bg:var(--ink);
+  --surface:rgba(255,255,255,.035);
+  --surface-2:rgba(255,255,255,.055);
+  --border:rgba(255,255,255,.10);
+  --border-strong:rgba(255,255,255,.18);
+  --fg:#F6F4F1;
+  --fg-muted:#B6B0AC;
+  --fg-dim:#8A8380;
+
+  /* Type scale */
+  --fs-display:clamp(3rem,10.5vw,8.5rem);
+  --fs-h1:clamp(2.25rem,5.2vw,4.25rem);
+  --fs-h2:clamp(1.75rem,3.4vw,2.9rem);
+  --fs-h3:clamp(1.15rem,1.7vw,1.5rem);
+  --fs-body:clamp(1rem,1.05vw,1.0625rem);
+  --fs-sm:.875rem;
+  --fs-xs:.75rem;
+
+  /* Spacing (density 4/10 — standard-spacious) */
+  --sp-1:.5rem;  --sp-2:1rem;   --sp-3:1.5rem;
+  --sp-4:2rem;   --sp-5:3rem;   --sp-6:4rem;
+  --sp-7:6rem;   --sp-8:8rem;
+
+  --r-sm:8px; --r-md:14px; --r-lg:22px; --r-xl:32px;
+  --shadow-lift:0 24px 60px -22px rgba(0,0,0,.85);
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --dur:420ms;
+
+  --maxw:1240px;
+  --z-nav:100; --z-overlay:200;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--fg);
+  font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  font-size:var(--fs-body);
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  transition:background var(--dur) var(--ease);
+}
+img,svg{max-width:100%;display:block}
+h1,h2,h3{font-family:'Playfair Display',Georgia,serif;font-weight:500;line-height:1.08;letter-spacing:-.015em;margin:0}
+p{margin:0}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--accent);color:#0B0A0C}
+
+.wrap{width:100%;max-width:var(--maxw);margin-inline:auto;padding-inline:clamp(1.25rem,4vw,2.5rem)}
+.eyebrow{
+  font-size:var(--fs-xs);letter-spacing:.28em;text-transform:uppercase;
+  font-weight:600;color:var(--accent);
+  display:flex;align-items:center;gap:.75rem;
+}
+.eyebrow::before{content:"";width:28px;height:1px;background:var(--accent);opacity:.7;flex:none}
+.lede{color:var(--fg-muted);max-width:60ch}
+
+/* ============================================================
+   FOCUS / A11Y
+   ============================================================ */
+:focus-visible{outline:2px solid var(--accent-lit);outline-offset:3px;border-radius:4px}
+.skip{
+  position:absolute;left:-9999px;top:0;z-index:999;
+  background:var(--accent);color:#0B0A0C;padding:.75rem 1.25rem;font-weight:600;border-radius:0 0 var(--r-sm) 0;
+}
+.skip:focus{left:0}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav{
+  position:fixed;inset:0 0 auto 0;z-index:var(--z-nav);
+  padding-top:env(safe-area-inset-top);
+  transition:background var(--dur) var(--ease),border-color var(--dur) var(--ease),backdrop-filter var(--dur);
+  border-bottom:1px solid transparent;
+}
+.nav[data-stuck="true"]{
+  background:rgba(11,10,12,.72);
+  backdrop-filter:blur(20px) saturate(1.4);
+  -webkit-backdrop-filter:blur(20px) saturate(1.4);
+  border-bottom-color:var(--border);
+}
+.nav__in{display:flex;align-items:center;justify-content:space-between;gap:var(--sp-3);min-height:72px}
+.brand{display:flex;align-items:center;gap:.7rem;font-weight:600;letter-spacing:.02em}
+.brand__mark{height:44px;width:auto;flex:none} /* escudo vertical (ratio 0.59) */
+.brand__txt{font-size:.9rem}
+.brand__txt small{display:block;font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:var(--fg-dim);font-weight:500;line-height:1.4}
+.nav__links{display:none;gap:var(--sp-4);align-items:center}
+@media(min-width:900px){.nav__links{display:flex}}
+.nav__links a{
+  font-size:var(--fs-sm);color:var(--fg-muted);position:relative;padding:.35rem 0;
+  transition:color 200ms var(--ease);cursor:pointer;
+}
+.nav__links a::after{
+  content:"";position:absolute;left:0;bottom:0;height:1px;width:100%;
+  background:var(--accent);transform:scaleX(0);transform-origin:right;
+  transition:transform 280ms var(--ease);
+}
+.nav__links a:hover{color:var(--fg)}
+.nav__links a:hover::after{transform:scaleX(1);transform-origin:left}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn{
+  --btn-bg:var(--accent);--btn-fg:#0B0A0C;
+  position:relative;overflow:hidden;isolation:isolate;
+  display:inline-flex;align-items:center;justify-content:center;gap:.6rem;
+  min-height:48px;padding:.85rem 1.6rem;
+  font-family:Inter,sans-serif;font-size:var(--fs-sm);font-weight:600;letter-spacing:.04em;
+  background:var(--btn-bg);color:var(--btn-fg);
+  border:1px solid transparent;border-radius:999px;cursor:pointer;
+  transition:transform 200ms var(--ease),box-shadow 240ms var(--ease),background 240ms var(--ease),color 240ms var(--ease);
+  will-change:transform;
+}
+.btn:active{transform:scale(.975)}
+
+/* --- Oro pulido: degradado metálico + destello al pasar el ratón --------
+   Solo en los botones dorados; el fantasma no es metálico. Todo se
+   construye sobre --accent, así que sigue el cambio de tema por equipación. */
+.btn:not(.btn--ghost){
+  background:linear-gradient(140deg,
+    color-mix(in srgb,var(--accent) 62%,#fff) 0%,
+    var(--accent) 44%,
+    color-mix(in srgb,var(--accent) 82%,#000) 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.45), 0 2px 10px -4px rgba(0,0,0,.5);
+}
+.btn:not(.btn--ghost):hover{
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.6),
+             0 0 22px -4px color-mix(in srgb,var(--accent) 70%,transparent),
+             0 12px 32px -12px color-mix(in srgb,var(--accent) 60%,transparent);
+}
+/* La franja de luz que barre el botón */
+.btn:not(.btn--ghost)::after{
+  content:"";position:absolute;z-index:-1;
+  top:-30%;bottom:-30%;left:-75%;width:45%;
+  background:linear-gradient(90deg,
+    transparent 0%, rgba(255,255,255,.25) 35%,
+    rgba(255,255,255,.9) 50%,
+    rgba(255,255,255,.25) 65%, transparent 100%);
+  transform:skewX(-22deg);opacity:0;pointer-events:none;
+}
+.btn:not(.btn--ghost):hover::after{animation:sheen 820ms var(--ease)}
+@keyframes sheen{
+  0%{opacity:0;transform:translateX(0) skewX(-22deg)}
+  12%{opacity:1}
+  88%{opacity:1}
+  100%{opacity:0;transform:translateX(400%) skewX(-22deg)}
+}
+@media(prefers-reduced-motion:reduce){
+  /* Sin barrido: se sustituye por un realce estático del brillo */
+  .btn:not(.btn--ghost):hover::after{animation:none;opacity:0}
+  .btn:not(.btn--ghost):hover{filter:brightness(1.12)}
+}
+
+.btn--ghost{--btn-bg:transparent;--btn-fg:var(--fg);border-color:var(--border-strong)}
+.btn--ghost:hover{background:var(--surface-2);border-color:var(--accent)}
+.btn__ico{width:16px;height:16px;flex:none;transition:transform 260ms var(--ease)}
+.btn:hover .btn__ico{transform:translateX(3px)}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  position:relative;min-height:100svh;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:calc(72px + var(--sp-3)) 0 var(--sp-5);
+  overflow:hidden;isolation:isolate;
+}
+@media(min-width:1000px){.hero{padding:calc(72px + var(--sp-6)) 0 var(--sp-6)}}
+/* --- Film layer -------------------------------------------------------
+   Narrow screens: the video is an in-flow band at the top of the hero and
+   the copy sits below it on solid ink — nothing ever overlaps the crest.
+   >=1000px: it becomes a full-bleed backdrop, nudged right so the jersey
+   clears the text column. --------------------------------------------- */
+.hero__video{
+  width:100%;height:min(44svh,360px);
+  object-fit:cover;object-position:50% 28%;
+  margin-bottom:var(--sp-4);background:var(--ink);
+  -webkit-mask-image:linear-gradient(180deg,#000 58%,transparent 99%);
+          mask-image:linear-gradient(180deg,#000 58%,transparent 99%);
+}
+.hero__glow,.hero__scrim{display:none}
+
+@media(min-width:1000px){
+  .hero__video{
+    position:absolute;inset:0;z-index:-3;
+    height:100%;margin:0;
+    object-position:50% 42%;
+    transform:translateX(19%) scale(1.06);
+    -webkit-mask-image:none;mask-image:none;
+  }
+  .hero__glow{
+    display:block;position:absolute;inset:0;z-index:-2;pointer-events:none;
+    background:radial-gradient(60% 50% at 64% 42%, color-mix(in srgb,var(--brand) 26%,transparent) 0%, transparent 72%);
+    mix-blend-mode:screen;opacity:.5;
+    transition:background var(--dur) var(--ease);
+  }
+  /* Readability scrim — the horizontal ramp is what buys the copy its contrast */
+  .hero__scrim{
+    display:block;position:absolute;inset:0;z-index:-1;pointer-events:none;
+    background:
+      linear-gradient(90deg,rgba(11,10,12,.96) 0%,rgba(11,10,12,.9) 28%,rgba(11,10,12,.45) 46%,rgba(11,10,12,0) 62%),
+      linear-gradient(180deg,rgba(11,10,12,.88) 0%,rgba(11,10,12,.2) 20%,rgba(11,10,12,0) 46%,
+                      rgba(11,10,12,.5) 74%,rgba(11,10,12,.92) 90%,var(--ink) 100%);
+  }
+}
+.hero__grain{
+  position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.35;
+  background-image:radial-gradient(rgba(255,255,255,.05) 1px,transparent 1px);
+  background-size:3px 3px;
+}
+
+.hero__grid{display:grid;gap:var(--sp-3)}
+@media(min-width:1000px){
+  .hero__grid{grid-template-columns:minmax(0,.44fr)}
+  /* Tighter display size so the headline never reaches the jersey */
+  .hero{--fs-display:clamp(3.25rem,6vw,5.5rem)}
+}
+
+.hero__display{
+  font-size:var(--fs-display);line-height:1.2;letter-spacing:-.035em;
+  margin:var(--sp-3) 0 var(--sp-3);
+  text-shadow:0 2px 30px rgba(11,10,12,.65);
+}
+.hero__copy .lede{text-shadow:0 1px 16px rgba(11,10,12,.8)}
+
+/* Video controls — WCAG 2.2.2: any auto-playing media over 5s needs a pause */
+.vidctl{
+  position:absolute;right:clamp(1.25rem,4vw,2.5rem);
+  bottom:calc(var(--sp-3) + env(safe-area-inset-bottom));z-index:3;
+  width:44px;height:44px;display:grid;place-items:center;
+  border-radius:50%;cursor:pointer;color:var(--fg);
+  background:rgba(11,10,12,.55);border:1px solid var(--border-strong);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  transition:background 220ms var(--ease),border-color 220ms var(--ease),transform 200ms var(--ease);
+}
+.vidctl:hover{background:rgba(11,10,12,.8);border-color:var(--accent)}
+.vidctl:active{transform:scale(.94)}
+.vidctl svg{width:16px;height:16px}
+.vidctl .ico-pause{display:block}
+.vidctl .ico-play{display:none}
+.vidctl[data-paused="true"] .ico-pause{display:none}
+.vidctl[data-paused="true"] .ico-play{display:block}
+.hero__display em{
+  display:block;font-style:normal;
+  background:linear-gradient(105deg,var(--accent-lit) 8%,var(--accent) 46%,#8B6B1E 96%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero__meta{
+  display:flex;flex-wrap:wrap;gap:var(--sp-3) var(--sp-4);
+  margin-top:var(--sp-4);padding-top:var(--sp-3);border-top:1px solid var(--border);
+}
+.hero__meta div{min-width:0}
+.hero__meta dt{font-size:var(--fs-xs);letter-spacing:.2em;text-transform:uppercase;color:var(--fg-dim);margin-bottom:.35rem}
+.hero__meta dd{margin:0;font-family:'Playfair Display',serif;font-size:1.35rem}
+.hero__cta{display:flex;flex-wrap:wrap;gap:var(--sp-2);margin-top:var(--sp-4)}
+
+/* Jersey stage (Equipaciones section) */
+.kits{display:grid;gap:var(--sp-4);align-items:center}
+@media(min-width:900px){.kits{grid-template-columns:minmax(0,.85fr) minmax(0,1fr);gap:var(--sp-5)}}
+.stage{
+  position:relative;display:grid;place-items:center;
+  padding:var(--sp-4) var(--sp-2);border-radius:var(--r-xl);
+  background:radial-gradient(72% 62% at 50% 42%,color-mix(in srgb,var(--brand) 34%,transparent),transparent 72%),
+             linear-gradient(180deg,var(--ink-2),var(--ink));
+  border:1px solid var(--border);overflow:hidden;
+  transition:background var(--dur) var(--ease);
+}
+.stage__plinth{
+  position:absolute;bottom:9%;left:50%;transform:translateX(-50%);
+  width:min(78%,440px);aspect-ratio:3/1;border-radius:50%;
+  background:radial-gradient(ellipse at center,rgba(0,0,0,.72) 0%,transparent 70%);
+  filter:blur(14px);pointer-events:none;
+}
+.kitcopy{grid-area:1/1}
+.kitcopy[hidden]{display:none}
+.kitcopy h3{font-size:var(--fs-h2);margin:.7rem 0 .6rem}
+.kitcopy .lede{margin-bottom:var(--sp-3)}
+.kitcopy dl{display:flex;flex-wrap:wrap;gap:var(--sp-3) var(--sp-4);margin:0;padding-top:var(--sp-3);border-top:1px solid var(--border)}
+.kitcopy dt{font-size:var(--fs-xs);letter-spacing:.2em;text-transform:uppercase;color:var(--fg-dim);margin-bottom:.3rem}
+.kitcopy dd{margin:0;font-family:'Playfair Display',serif;font-size:1.2rem}
+.kitpane{display:grid}
+.kit{grid-area:1/1;width:min(100%,460px);height:auto;filter:drop-shadow(0 34px 44px rgba(0,0,0,.62))}
+.kit[hidden]{display:none}
+/* Doble especificidad: .float aparece después y si no ganaría el atajo
+   `animation`, dejando la entrada sin reproducirse. */
+.kit.kit--anim{animation:kitIn 620ms var(--ease) both, float 7s ease-in-out 620ms infinite}
+@keyframes kitIn{
+  from{opacity:0;transform:translateY(22px) scale(.965)}
+  to{opacity:1;transform:none}
+}
+.float{animation:float 7s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+
+/* Kit switcher */
+.switcher{
+  display:inline-flex;gap:4px;padding:5px;margin-bottom:var(--sp-3);
+  background:rgba(255,255,255,.06);border:1px solid var(--border);
+  border-radius:999px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+}
+.switcher__btn{
+  appearance:none;border:0;cursor:pointer;
+  min-height:44px;padding:.6rem 1.35rem;border-radius:999px;
+  font-family:Inter,sans-serif;font-size:var(--fs-sm);font-weight:500;letter-spacing:.03em;
+  background:transparent;color:var(--fg-muted);
+  display:inline-flex;align-items:center;gap:.55rem;
+  transition:background 260ms var(--ease),color 260ms var(--ease);
+}
+.switcher__btn:hover{color:var(--fg)}
+.switcher__btn[aria-selected="true"]{background:var(--fg);color:var(--ink);font-weight:600}
+.swatch{width:11px;height:11px;border-radius:50%;flex:none;border:1px solid rgba(0,0,0,.28)}
+
+/* ============================================================
+   SECTIONS
+   ============================================================ */
+.section{padding:var(--sp-7) 0;position:relative}
+.section__head{max-width:66ch;margin-bottom:var(--sp-5)}
+.section__head h2{font-size:var(--fs-h2);margin:var(--sp-2) 0 var(--sp-2)}
+
+/* Marquee ribbon */
+.ribbon{
+  border-block:1px solid var(--border);
+  background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--brand) 22%,transparent),transparent);
+  overflow:hidden;padding:1.15rem 0;transition:background var(--dur) var(--ease);
+}
+.ribbon__track{display:flex;gap:var(--sp-4);width:max-content;animation:slide 34s linear infinite}
+.ribbon:hover .ribbon__track{animation-play-state:paused}
+@keyframes slide{to{transform:translateX(-50%)}}
+.ribbon span{
+  font-family:'Playfair Display',serif;font-size:1.05rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--fg-muted);display:flex;align-items:center;gap:var(--sp-4);
+  white-space:nowrap;
+}
+.ribbon span::after{content:"";width:5px;height:5px;border-radius:50%;background:var(--accent);flex:none}
+
+/* Bento detail grid */
+.bento{display:grid;gap:var(--sp-2);grid-template-columns:1fr}
+@media(min-width:760px){.bento{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1060px){
+  .bento{grid-template-columns:repeat(3,1fr)}
+  .bento__item--wide{grid-column:span 2}
+}
+.card{
+  position:relative;overflow:hidden;isolation:isolate;
+  padding:var(--sp-4);border-radius:var(--r-lg);
+  background:var(--surface);border:1px solid var(--border);
+  transition:border-color 300ms var(--ease),background 300ms var(--ease),transform 300ms var(--ease);
+}
+.card::before{
+  content:"";position:absolute;inset:0;z-index:-1;opacity:0;
+  background:radial-gradient(120% 100% at 0% 0%,color-mix(in srgb,var(--brand) 34%,transparent),transparent 62%);
+  transition:opacity 380ms var(--ease);
+}
+.card:hover{border-color:var(--border-strong);background:var(--surface-2);transform:translateY(-3px)}
+.card:hover::before{opacity:1}
+.card__ico{
+  width:42px;height:42px;display:grid;place-items:center;margin-bottom:var(--sp-3);
+  border-radius:12px;background:color-mix(in srgb,var(--accent) 15%,transparent);
+  border:1px solid color-mix(in srgb,var(--accent) 34%,transparent);color:var(--accent-lit);
+}
+.card__ico svg{width:20px;height:20px}
+.card h3{font-size:var(--fs-h3);margin-bottom:.6rem}
+.card p{color:var(--fg-muted);font-size:.9375rem}
+
+/* Palmarés timeline */
+.palmares{display:grid;gap:0;border-top:1px solid var(--border)}
+.row{
+  display:grid;grid-template-columns:auto 1fr auto;gap:var(--sp-3);align-items:center;
+  padding:var(--sp-3) var(--sp-2);border-bottom:1px solid var(--border);
+  transition:background 260ms var(--ease),padding-inline 300ms var(--ease);
+}
+.row:hover{background:var(--surface)}
+@media(min-width:760px){.row:hover{padding-inline:var(--sp-3)}}
+.row__yr{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3vw,2.2rem);color:var(--fg);min-width:4.5ch;font-variant-numeric:tabular-nums}
+.row__title{font-weight:500;letter-spacing:.01em}
+.row__sub{display:block;font-size:var(--fs-sm);color:var(--fg-dim);font-weight:400}
+.row__tag{
+  font-size:var(--fs-xs);letter-spacing:.16em;text-transform:uppercase;
+  padding:.4rem .8rem;border-radius:999px;white-space:nowrap;
+  border:1px solid var(--border-strong);color:var(--fg-muted);
+}
+.row--crown{background:linear-gradient(90deg,color-mix(in srgb,var(--brand) 26%,transparent),transparent)}
+.row--crown .row__yr{color:var(--accent-lit)}
+.row--crown .row__tag{border-color:var(--accent);color:var(--accent-lit);background:color-mix(in srgb,var(--accent) 12%,transparent)}
+
+/* Specs table */
+.specs{display:grid;gap:0;grid-template-columns:1fr}
+@media(min-width:760px){.specs{grid-template-columns:repeat(2,1fr);column-gap:var(--sp-5)}}
+.spec{display:flex;justify-content:space-between;gap:var(--sp-3);padding:1.1rem 0;border-bottom:1px solid var(--border)}
+.spec dt{color:var(--fg-dim);font-size:var(--fs-sm)}
+.spec dd{margin:0;text-align:right;font-weight:500;font-size:var(--fs-sm)}
+
+/* Palette strip */
+.palette{display:flex;flex-wrap:wrap;gap:var(--sp-2);margin-top:var(--sp-4)}
+.chip{display:flex;align-items:center;gap:.7rem;padding:.55rem .95rem .55rem .55rem;border:1px solid var(--border);border-radius:999px}
+.chip i{width:22px;height:22px;border-radius:50%;flex:none;border:1px solid rgba(255,255,255,.16)}
+.chip b{font-weight:500;font-size:var(--fs-sm)}
+.chip small{color:var(--fg-dim);font-size:var(--fs-xs);font-variant-numeric:tabular-nums;letter-spacing:.04em}
+
+/* CTA */
+.cta{position:relative;overflow:hidden;text-align:center;padding:var(--sp-8) 0;isolation:isolate}
+.cta::before{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:radial-gradient(70% 100% at 50% 100%,color-mix(in srgb,var(--brand) 58%,transparent),transparent 70%);
+  transition:background var(--dur) var(--ease);
+}
+.cta h2{font-size:var(--fs-h1);margin-bottom:var(--sp-3)}
+.cta .lede{margin-inline:auto}
+.cta__row{display:flex;flex-wrap:wrap;gap:var(--sp-2);justify-content:center;margin-top:var(--sp-4)}
+.cta__note{margin-top:var(--sp-3);font-size:var(--fs-xs);color:var(--fg-dim);letter-spacing:.06em}
+
+/* Footer */
+.footer{border-top:1px solid var(--border);padding:var(--sp-5) 0 calc(var(--sp-4) + env(safe-area-inset-bottom))}
+.footer__in{display:flex;flex-wrap:wrap;gap:var(--sp-3);justify-content:space-between;align-items:center}
+.footer small{color:var(--fg-dim);font-size:var(--fs-xs);line-height:1.7}
+.footer nav{display:flex;flex-wrap:wrap;gap:var(--sp-3)}
+.footer nav a{font-size:var(--fs-sm);color:var(--fg-muted);transition:color 200ms var(--ease)}
+.footer nav a:hover{color:var(--accent-lit)}
+
+/* ============================================================
+   REVEAL
+   ============================================================ */
+.rv{opacity:0;transform:translateY(26px);transition:opacity 700ms var(--ease),transform 700ms var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv-stagger>*{opacity:0;transform:translateY(22px);transition:opacity 620ms var(--ease),transform 620ms var(--ease)}
+.rv-stagger.in>*{opacity:1;transform:none}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .rv,.rv-stagger>*{opacity:1!important;transform:none!important}
+}
+html{scroll-behavior:smooth;scroll-padding-top:96px}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Saltar al contenido principal</a>
+
+<!-- ============ NAV ============ -->
+<header class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a class="brand" href="#top" aria-label="La Roja 2026 — inicio">
+      <img class="brand__mark" src="escudo-mark.png" width="72" height="122" alt="" decoding="async">
+      <span class="brand__txt">La Roja<small>Mundial 2026</small></span>
+    </a>
+    <nav class="nav__links" aria-label="Navegación principal">
+      <a href="#equipaciones">Equipaciones</a>
+      <a href="#diseno">El diseño</a>
+      <a href="#palmares">Palmarés</a>
+      <a href="#ficha">Ficha técnica</a>
+    </nav>
+    <a class="btn" href="#reserva">
+      Reservar
+      <svg class="btn__ico" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h12m0 0-4.5-4.5M16 10l-4.5 4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+</header>
+
+<main id="main">
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <video class="hero__video" id="heroVideo"
+         src="camiseta.mp4" poster="poster.jpg"
+         autoplay muted loop playsinline preload="metadata"
+         aria-label="Vídeo de la primera equipación de España 2026 girando bajo un haz de luz que ilumina la segunda estrella"></video>
+  <div class="hero__glow" aria-hidden="true"></div>
+  <div class="hero__scrim" aria-hidden="true"></div>
+  <div class="hero__grain" aria-hidden="true"></div>
+
+  <button class="vidctl" id="vidctl" type="button" aria-label="Pausar vídeo" data-paused="false">
+    <svg class="ico-pause" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><rect x="3" y="2" width="3.6" height="12" rx="1.1"/><rect x="9.4" y="2" width="3.6" height="12" rx="1.1"/></svg>
+    <svg class="ico-play" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4.5 2.6a.9.9 0 0 1 1.36-.77l7.1 4.4a.9.9 0 0 1 0 1.54l-7.1 4.4a.9.9 0 0 1-1.36-.77V2.6Z"/></svg>
+  </button>
+
+  <div class="wrap hero__grid">
+    <div class="hero__copy rv">
+      <p class="eyebrow">Campeones del Mundo · 2026</p>
+      <h1 class="hero__display">Dos estrellas<em>Una leyenda</em></h1>
+      <p class="lede">La segunda estrella ya está cosida. Presentamos la equipación oficial de la Selección Española: un homenaje al rojo histórico, tejido con hilo dorado sobre el azul de la noche en que todo cambió.</p>
+
+      <dl class="hero__meta">
+        <div><dt>Temporada</dt><dd>2026 / 27</dd></div>
+        <div><dt>Estrellas</dt><dd>II</dd></div>
+        <div><dt>A la venta</dt><dd>4 agosto</dd></div>
+      </dl>
+
+      <div class="hero__cta">
+        <a class="btn" href="#reserva">Reservar equipación<svg class="btn__ico" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h12m0 0-4.5-4.5M16 10l-4.5 4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a class="btn btn--ghost" href="#equipaciones">Ver las equipaciones</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RIBBON ============ -->
+<div class="ribbon" aria-hidden="true">
+  <div class="ribbon__track">
+    <span>Campeones del Mundo 2026</span><span>Dos Estrellas</span><span>Rojo, Oro y Noche</span><span>Edición Campeón</span><span>Hecho en España</span>
+    <span>Campeones del Mundo 2026</span><span>Dos Estrellas</span><span>Rojo, Oro y Noche</span><span>Edición Campeón</span><span>Hecho en España</span>
+  </div>
+</div>
+
+<!-- ============ EQUIPACIONES ============ -->
+<section class="section" id="equipaciones">
+  <div class="wrap">
+    <div class="section__head rv">
+      <p class="eyebrow">Las equipaciones</p>
+      <h2>Una para casa. Otra para conquistar.</h2>
+      <p class="lede">Dos piezas que cuentan la misma historia desde extremos opuestos del espectro: la intensidad del rojo histórico y la serenidad del blanco roto que la selección solo se pone cuando juega lejos de los suyos.</p>
+    </div>
+
+    <div class="kits rv">
+      <div>
+        <div class="switcher" role="tablist" aria-label="Seleccionar equipación">
+          <button class="switcher__btn" role="tab" id="tab-home" aria-controls="panel-kit" aria-selected="true" data-kit="home">
+            <span class="swatch" style="background:linear-gradient(135deg,#C0202C,#5C0D14)" aria-hidden="true"></span>Primera
+          </button>
+          <button class="switcher__btn" role="tab" id="tab-away" aria-controls="panel-kit" aria-selected="false" data-kit="away" tabindex="-1">
+            <span class="swatch" style="background:linear-gradient(135deg,#F3EFE4,#C9BFA6)" aria-hidden="true"></span>Segunda
+          </button>
+        </div>
+
+        <div class="kitpane">
+          <div class="kitcopy" id="copy-home">
+            <p class="eyebrow">Primera equipación</p>
+            <h3>Rojo Furia</h3>
+            <p class="lede">Carmesí profundo recorrido por rayas verticales de hilo dorado, con mangas raglán en azul noche. El contraste exacto que se vio bajo los focos la noche de la final.</p>
+            <dl>
+              <div><dt>Cuerpo</dt><dd>Carmesí</dd></div>
+              <div><dt>Mangas</dt><dd>Azul noche</dd></div>
+              <div><dt>Detalle</dt><dd>Hilo oro</dd></div>
+            </dl>
+          </div>
+          <div class="kitcopy" id="copy-away" hidden>
+            <p class="eyebrow">Segunda equipación</p>
+            <h3>Blanco Hueso</h3>
+            <p class="lede">Crema con cuello y puños en granate ribeteados de oro, corte retro acanalado y una textura tonal en relieve inspirada en el mosaico ibérico.</p>
+            <dl>
+              <div><dt>Cuerpo</dt><dd>Crema</dd></div>
+              <div><dt>Ribetes</dt><dd>Granate</dd></div>
+              <div><dt>Detalle</dt><dd>Textura tonal</dd></div>
+            </dl>
+          </div>
+        </div>
+      </div>
+
+<div class="stage" id="panel-kit" role="tabpanel" aria-labelledby="tab-home">
+      <div class="stage__plinth" aria-hidden="true"></div>
+
+      <!-- ===== HOME KIT ===== -->
+      <img class="kit float" id="kit-home" src="cami1.webp" width="709" height="874" decoding="async"
+           alt="Primera equipación de España 2026: camiseta roja con rayas verticales de pespunte dorado, mangas azul marino con franjas doradas en los hombros y escudo de la RFEF con dos estrellas.">
+
+      <!-- ===== AWAY KIT ===== -->
+      <img class="kit float" id="kit-away" src="cami2.webp" width="688" height="866" decoding="async" hidden
+           alt="Segunda equipación de España 2026: camiseta color crema con cuello y puños granate ribeteados en oro, triple franja granate en los hombros y escudo de la RFEF con dos estrellas.">
+    </div>
+  </div>
+</section>
+
+<!-- ============ DISEÑO ============ -->
+<section class="section" id="diseno">
+  <div class="wrap">
+    <div class="section__head rv">
+      <p class="eyebrow">El diseño</p>
+      <h2>Cada detalle es una decisión.</h2>
+      <p class="lede">Nada en esta camiseta es decorativo. Cada línea, cada pespunte y cada gramo de tejido responde a una razón deportiva o a un capítulo de la historia de la selección.</p>
+    </div>
+
+    <div class="bento rv-stagger">
+      <article class="card">
+        <div class="card__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="m12 2.5 2.9 5.9 6.5.95-4.7 4.6 1.1 6.5-5.8-3.05-5.8 3.05 1.1-6.5-4.7-4.6 6.5-.95L12 2.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+        <h3>La segunda estrella</h3>
+        <p>Bordada en hilo metálico sobre el escudo de la RFEF, con el mismo tono dorado que el trofeo. Es el único elemento nuevo respecto al escudo de 1909.</p>
+      </article>
+
+      <article class="card">
+        <div class="card__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 3v18M12 3v18M19 3v18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="3 3"/></svg></div>
+        <h3>Rayas de hilo dorado</h3>
+        <p>Siete líneas verticales discontinuas recorren el frontal. Cambian de intensidad según la luz: casi invisibles en reposo, incandescentes bajo los focos del estadio.</p>
+      </article>
+
+      <article class="card">
+        <div class="card__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 8.5 12 4l8 4.5v7L12 20l-8-4.5v-7Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 12v8m8-11.5L12 12 4 8.5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+        <h3>Mangas azul noche</h3>
+        <p>Corte raglán en marino profundo, recuperando el bicolor de las equipaciones clásicas. La triple franja dorada nace en el cuello y muere en el bíceps.</p>
+      </article>
+
+      <article class="card bento__item--wide">
+        <div class="card__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21s-7.5-4.35-7.5-10.05A4.5 4.5 0 0 1 12 8.2a4.5 4.5 0 0 1 7.5 2.75C19.5 16.65 12 21 12 21Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+        <h3>Tejido HEAT.RDY reciclado</h3>
+        <p>Poliéster 100% reciclado con canales de ventilación láser en la zona lumbar y axilar. Un 18% más ligero que la equipación de 2024 y con secado un tercio más rápido, sin perder la caída estructurada que exige una camiseta de esta categoría.</p>
+      </article>
+
+      <article class="card">
+        <div class="card__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.6"/><path d="M12 6.5v5.8l3.6 2.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+        <h3>Etiqueta conmemorativa</h3>
+        <p>En el interior del cuello, la fecha de la final y las coordenadas del estadio, serigrafiadas en oro sobre fondo marino.</p>
+      </article>
+    </div>
+
+    <div class="palette rv" aria-label="Paleta cromática de la equipación">
+      <span class="chip"><i style="background:#8E1620"></i><span><b>Rojo Furia</b><br><small>#8E1620</small></span></span>
+      <span class="chip"><i style="background:#1E2140"></i><span><b>Azul Noche</b><br><small>#1E2140</small></span></span>
+      <span class="chip"><i style="background:#D6A93C"></i><span><b>Oro Campeón</b><br><small>#D6A93C</small></span></span>
+      <span class="chip"><i style="background:#F3EFE4"></i><span><b>Blanco Hueso</b><br><small>#F3EFE4</small></span></span>
+      <span class="chip"><i style="background:#7C2233"></i><span><b>Granate</b><br><small>#7C2233</small></span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PALMARÉS ============ -->
+<section class="section" id="palmares">
+  <div class="wrap">
+    <div class="section__head rv">
+      <p class="eyebrow">Palmarés</p>
+      <h2>El camino hasta la segunda estrella.</h2>
+      <p class="lede">Dieciséis años entre una copa y otra. Este es el recorrido que la camiseta lleva cosido.</p>
+    </div>
+
+    <div class="palmares rv">
+      <div class="row row--crown">
+        <span class="row__yr">2026</span>
+        <span class="row__title">Copa Mundial de la FIFA<small class="row__sub">América, México y Canadá · La segunda estrella</small></span>
+        <span class="row__tag">Campeón</span>
+      </div>
+      <div class="row">
+        <span class="row__yr">2024</span>
+        <span class="row__title">Eurocopa<small class="row__sub">Alemania · Cuarto título continental</small></span>
+        <span class="row__tag">Campeón</span>
+      </div>
+      <div class="row">
+        <span class="row__yr">2023</span>
+        <span class="row__title">Liga de Naciones<small class="row__sub">Países Bajos</small></span>
+        <span class="row__tag">Campeón</span>
+      </div>
+      <div class="row">
+        <span class="row__yr">2012</span>
+        <span class="row__title">Eurocopa<small class="row__sub">Polonia y Ucrania</small></span>
+        <span class="row__tag">Campeón</span>
+      </div>
+      <div class="row">
+        <span class="row__yr">2010</span>
+        <span class="row__title">Copa Mundial de la FIFA<small class="row__sub">Sudáfrica · La primera estrella</small></span>
+        <span class="row__tag">Campeón</span>
+      </div>
+      <div class="row">
+        <span class="row__yr">2008</span>
+        <span class="row__title">Eurocopa<small class="row__sub">Austria y Suiza</small></span>
+        <span class="row__tag">Campeón</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FICHA TÉCNICA ============ -->
+<section class="section" id="ficha">
+  <div class="wrap">
+    <div class="section__head rv">
+      <p class="eyebrow">Ficha técnica</p>
+      <h2>Especificaciones.</h2>
+    </div>
+    <dl class="specs rv">
+      <div class="spec"><dt>Temporada</dt><dd>2026 / 2027</dd></div>
+      <div class="spec"><dt>Corte</dt><dd>Authentic · Ajustado</dd></div>
+      <div class="spec"><dt>Composición</dt><dd>100% poliéster reciclado</dd></div>
+      <div class="spec"><dt>Tecnología</dt><dd>HEAT.RDY</dd></div>
+      <div class="spec"><dt>Cuello</dt><dd>Redondo acanalado</dd></div>
+      <div class="spec"><dt>Escudo</dt><dd>Bordado en relieve</dd></div>
+      <div class="spec"><dt>Tallas</dt><dd>XS — 3XL</dd></div>
+      <div class="spec"><dt>Peso</dt><dd>128 g (talla M)</dd></div>
+      <div class="spec"><dt>Personalización</dt><dd>Dorsal y nombre oficiales</dd></div>
+      <div class="spec"><dt>Disponibilidad</dt><dd>Edición limitada</dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="cta" id="reserva">
+  <div class="wrap">
+    <div class="rv">
+      <p class="eyebrow" style="justify-content:center">Reserva anticipada</p>
+      <h2>Llévate la historia puesta.</h2>
+      <p class="lede">Las unidades de la edición Campeón son numeradas. Reserva la tuya y elige personalización con dorsal y nombre oficiales.</p>
+      <div class="cta__row">
+        <a class="btn" href="#reserva">Reservar ahora<svg class="btn__ico" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h12m0 0-4.5-4.5M16 10l-4.5 4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a class="btn btn--ghost" href="#ficha">Ver guía de tallas</a>
+      </div>
+      <p class="cta__note">Envío gratuito · Devolución en 30 días · Numeración garantizada</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap footer__in">
+    <small>Proyecto conceptual de exhibición. Sin afiliación oficial con la RFEF, la FIFA ni ninguna marca deportiva.<br>© 2026 · La Roja 2026</small>
+    <nav aria-label="Enlaces del pie">
+      <a href="#equipaciones">Equipaciones</a>
+      <a href="#diseno">Diseño</a>
+      <a href="#palmares">Palmarés</a>
+      <a href="#ficha">Ficha técnica</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- Sticky nav ---- */
+  var nav = document.getElementById('nav'), ticking = false;
+  function onScroll(){
+    if(ticking) return;
+    ticking = true;
+    requestAnimationFrame(function(){
+      nav.dataset.stuck = window.scrollY > 24 ? 'true' : 'false';
+      ticking = false;
+    });
+  }
+  onScroll();
+  window.addEventListener('scroll', onScroll, {passive:true});
+
+  /* ---- Scroll reveal ---- */
+  var targets = document.querySelectorAll('.rv, .rv-stagger');
+  if(reduce || !('IntersectionObserver' in window)){
+    targets.forEach(function(el){ el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(!e.isIntersecting) return;
+        var el = e.target;
+        if(el.classList.contains('rv-stagger')){
+          Array.prototype.forEach.call(el.children, function(child, i){
+            child.style.transitionDelay = (i * 90) + 'ms';
+          });
+        }
+        el.classList.add('in');
+        io.unobserve(el);
+      });
+    }, {threshold:0.14, rootMargin:'0px 0px -8% 0px'});
+    targets.forEach(function(el){ io.observe(el); });
+  }
+
+  /* ---- Kit switcher ---- */
+  var THEMES = {
+    home: {brand:'#8E1620', lit:'#C0202C', deep:'#5C0D14', accent:'#D6A93C', accentLit:'#F0D28A'},
+    away: {brand:'#7C2233', lit:'#9B3247', deep:'#54121F', accent:'#E0B558', accentLit:'#F3DCA4'}
+  };
+  var tabs   = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
+  var panel  = document.getElementById('panel-kit');
+  var kits   = {home: document.getElementById('kit-home'), away: document.getElementById('kit-away')};
+  var copies = {home: document.getElementById('copy-home'), away: document.getElementById('copy-away')};
+  var root   = document.documentElement;
+
+  function select(kit, focus){
+    var t = THEMES[kit];
+    root.style.setProperty('--brand', t.brand);
+    root.style.setProperty('--brand-lit', t.lit);
+    root.style.setProperty('--brand-deep', t.deep);
+    root.style.setProperty('--accent', t.accent);
+    root.style.setProperty('--accent-lit', t.accentLit);
+
+    tabs.forEach(function(tab){
+      var on = tab.dataset.kit === kit;
+      tab.setAttribute('aria-selected', String(on));
+      tab.tabIndex = on ? 0 : -1;
+      if(on) panel.setAttribute('aria-labelledby', tab.id);
+      if(on && focus) tab.focus();
+    });
+
+    Object.keys(kits).forEach(function(k){
+      var img = kits[k];
+      img.toggleAttribute('hidden', k !== kit);
+      img.classList.remove('kit--anim');
+      if(k === kit && !reduce){
+        img.getBoundingClientRect();    // fuerza reflow para reiniciar la animación
+        img.classList.add('kit--anim');
+      }
+      copies[k].hidden = k !== kit;
+    });
+  }
+
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(){ select(tab.dataset.kit, false); });
+    tab.addEventListener('keydown', function(e){
+      var i = tabs.indexOf(tab), next = null;
+      if(e.key === 'ArrowRight' || e.key === 'ArrowDown') next = tabs[(i + 1) % tabs.length];
+      else if(e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = tabs[(i - 1 + tabs.length) % tabs.length];
+      else if(e.key === 'Home') next = tabs[0];
+      else if(e.key === 'End') next = tabs[tabs.length - 1];
+      if(next){ e.preventDefault(); select(next.dataset.kit, true); }
+    });
+  });
+
+  /* ---- Hero video ---- */
+  var vid = document.getElementById('heroVideo'), ctl = document.getElementById('vidctl');
+  function sync(){
+    var paused = vid.paused;
+    ctl.dataset.paused = String(paused);
+    ctl.setAttribute('aria-label', paused ? 'Reproducir vídeo' : 'Pausar vídeo');
+  }
+  ctl.addEventListener('click', function(){
+    if(vid.paused) vid.play().catch(function(){}); else vid.pause();
+    // Remember an explicit pause so the viewport observer doesn't override it.
+    ctl.dataset.userPaused = String(vid.paused);
+  });
+  vid.addEventListener('play', sync);
+  vid.addEventListener('pause', sync);
+
+  // Honour reduced-motion: hold on the poster frame instead of looping.
+  if(reduce){ vid.autoplay = false; vid.pause(); }
+  sync();
+
+  // Don't burn cycles decoding video that isn't on screen.
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(reduce || ctl.dataset.userPaused === 'true') return;
+        if(e.isIntersecting) vid.play().catch(function(){}); else vid.pause();
+      });
+    }, {threshold:0.1}).observe(vid);
+  }
+})();
+</script>
+</body>
+</html>
