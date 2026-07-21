@@ -17,6 +17,8 @@ y un selector que cambia entre primera y segunda equipación retiñendo toda la 
 - **Selector de equipación** — conmuta la foto, el texto descriptivo y la paleta de toda
   la página (carmesí + oro ⟷ granate + oro claro).
 - **Palmarés, ficha técnica y paleta cromática** de la equipación.
+- **Música ambiente opcional** — apagada por defecto, se activa con el altavoz de la
+  barra superior. Entra y sale con un fundido de volumen.
 - **Sin dependencias ni compilación.** Un único `index.html` con el CSS y el JS embebidos.
   Lo único externo son las fuentes de Google Fonts.
 
@@ -63,6 +65,7 @@ python -m http.server 8000
 ├── index.html          Página completa (HTML + CSS + JS embebidos)
 ├── camiseta.mp4        Vídeo del hero — 1920×1080, 10 s
 ├── poster.jpg          Primer fotograma, se muestra mientras carga el vídeo
+├── music.mp3           Música ambiente — 5:07, se activa desde la barra superior
 ├── escudo.png          Escudo RFEF original (1970×3332)
 ├── escudo-mark.png     Escudo reescalado a 72 px para la barra de navegación
 ├── cami1.jpg/.webp     Primera equipación — original y recorte con transparencia
@@ -99,6 +102,8 @@ WebP (56 KB y 33 KB).
 - Selector de equipación con patrón ARIA de pestañas y navegación por flechas.
 - Botón de pausa del vídeo (WCAG 2.2.2: todo medio que se reproduce solo más de 5 s
   necesita control).
+- La música **nunca arranca sola** (WCAG 1.4.2) y su interruptor es un `aria-pressed`
+  con etiqueta que cambia según el estado.
 - `prefers-reduced-motion` desactiva el barrido de luz, la flotación y las apariciones;
   el vídeo se queda en el póster.
 - Áreas táctiles de 44 px mínimo y respeto de las áreas seguras (`safe-area-inset`).
@@ -117,6 +122,7 @@ Ninguno de los elementos de marca es de creación propia:
 | `camiseta.mp4`, `poster.jpg` | Metraje de **MARCA** |
 | `escudo.png`, `escudo-mark.png` | Escudo de la **RFEF**, marca registrada |
 | `cami1.*`, `cami2.*` | Fotografías de producto — **Adidas / la tienda de origen** |
+| `music.mp3` | Grabación musical — **su autor o discográfica** |
 | Diseño de las equipaciones | **Adidas / RFEF** |
 
 Subir el repositorio a GitHub **redistribuye estos archivos**. Para un repositorio

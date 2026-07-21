@@ -133,7 +133,13 @@ a{color:inherit;text-decoration:none}
 .brand{display:flex;align-items:center;gap:.7rem;font-weight:600;letter-spacing:.02em}
 .brand__mark{height:44px;width:auto;flex:none} /* escudo vertical (ratio 0.59) */
 .brand__txt{font-size:.9rem}
-.brand__txt small{display:block;font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:var(--fg-dim);font-weight:500;line-height:1.4}
+.brand__txt small{display:block;font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:var(--fg-dim);font-weight:500;line-height:1.4;white-space:nowrap}
+/* El interruptor de música roba ancho: se aprieta la marca en pantallas estrechas */
+@media(max-width:480px){
+  .brand__mark{height:36px}
+  .brand__txt small{letter-spacing:.16em}
+  .nav__end{gap:.4rem}
+}
 .nav__links{display:none;gap:var(--sp-4);align-items:center}
 @media(min-width:900px){.nav__links{display:flex}}
 .nav__links a{
@@ -147,6 +153,22 @@ a{color:inherit;text-decoration:none}
 }
 .nav__links a:hover{color:var(--fg)}
 .nav__links a:hover::after{transform:scaleX(1);transform-origin:left}
+
+/* Interruptor de música ambiente */
+.nav__end{display:flex;align-items:center;gap:.6rem;flex:none}
+.sound{
+  width:44px;height:44px;flex:none;display:grid;place-items:center;
+  border-radius:50%;cursor:pointer;color:var(--fg-muted);
+  background:transparent;border:1px solid var(--border);
+  transition:color 220ms var(--ease),border-color 220ms var(--ease),background 220ms var(--ease);
+}
+.sound:hover{color:var(--fg);border-color:var(--accent);background:var(--surface-2)}
+.sound:active{transform:scale(.94)}
+.sound svg{width:18px;height:18px}
+.sound .ico-on{display:none}
+.sound[data-on="true"]{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 50%,transparent)}
+.sound[data-on="true"] .ico-on{display:block}
+.sound[data-on="true"] .ico-off{display:none}
 
 /* ============================================================
    BUTTONS
@@ -498,12 +520,27 @@ html{scroll-behavior:smooth;scroll-padding-top:96px}
       <a href="#palmares">Palmarés</a>
       <a href="#ficha">Ficha técnica</a>
     </nav>
-    <a class="btn" href="#reserva">
-      Reservar
-      <svg class="btn__ico" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h12m0 0-4.5-4.5M16 10l-4.5 4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </a>
+    <div class="nav__end">
+      <button class="sound" id="sound" type="button" data-on="false" aria-pressed="false" aria-label="Activar música de fondo">
+        <svg class="ico-off" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <path d="M4 7.5h2.8L10.5 4v12L6.8 12.5H4a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="m14 8 4 4m0-4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <svg class="ico-on" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <path d="M4 7.5h2.8L10.5 4v12L6.8 12.5H4a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M13.4 7.4a3.6 3.6 0 0 1 0 5.2M15.8 5.2a6.8 6.8 0 0 1 0 9.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <a class="btn" href="#reserva">
+        Reservar
+        <svg class="btn__ico" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h12m0 0-4.5-4.5M16 10l-4.5 4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
   </div>
 </header>
+
+<!-- Música ambiente. preload="none": los 4,7 MB solo se descargan si se activa. -->
+<audio id="bgm" src="music.mp3" loop preload="none"></audio>
 
 <main id="main">
 <!-- ============ HERO ============ -->
@@ -872,6 +909,52 @@ html{scroll-behavior:smooth;scroll-padding-top:96px}
       });
     }, {threshold:0.1}).observe(vid);
   }
+
+  /* ---- Música ambiente ----------------------------------------------
+     Los navegadores bloquean la reproducción de audio con sonido sin un
+     gesto previo del usuario, así que arranca apagada por diseño. El
+     volumen entra y sale con un fundido para que no dé un salto seco. */
+  var bgm = document.getElementById('bgm'), snd = document.getElementById('sound');
+  var VOL = 0.4, FADE = 700, fadeId = null;
+
+  function fadeTo(target, done){
+    cancelAnimationFrame(fadeId);
+    var from = bgm.volume, t0 = performance.now();
+    (function step(now){
+      var k = Math.min(1, (now - t0) / FADE);
+      bgm.volume = Math.max(0, Math.min(1, from + (target - from) * k));
+      if(k < 1) fadeId = requestAnimationFrame(step);
+      else if(done) done();
+    })(performance.now());
+  }
+
+  function setUI(on){
+    snd.dataset.on = String(on);
+    snd.setAttribute('aria-pressed', String(on));
+    snd.setAttribute('aria-label', on ? 'Silenciar música de fondo' : 'Activar música de fondo');
+  }
+
+  function start(){
+    bgm.volume = 0;
+    return bgm.play().then(function(){
+      setUI(true); fadeTo(VOL);
+      try{ sessionStorage.setItem('bgm','1'); }catch(e){}
+    }).catch(function(){
+      setUI(false);                 // el navegador lo ha bloqueado: sin sorpresas
+    });
+  }
+
+  function stop(){
+    setUI(false);
+    try{ sessionStorage.setItem('bgm','0'); }catch(e){}
+    fadeTo(0, function(){ bgm.pause(); });
+  }
+
+  snd.addEventListener('click', function(){ bgm.paused ? start() : stop(); });
+
+  // Si ya estaba activada en esta sesión, se reanuda; si el navegador
+  // lo rechaza por falta de gesto, el botón se queda en apagado.
+  try{ if(sessionStorage.getItem('bgm') === '1') start(); }catch(e){}
 })();
 </script>
 </body>
